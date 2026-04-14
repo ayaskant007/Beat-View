@@ -1,2 +1,1 @@
-# Spotify-Display
-Spotify-Display
+# Beat-View
