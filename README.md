@@ -9,12 +9,8 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ## Project Media
 
-### Finished Project Pictures
-![Physical Device Front View](path/to/your/finished_project_front.jpg)
-![Physical Device Desk Setup](path/to/your/finished_project_desk.jpg)
-
 ### 3D Model Render
-![Fusion 360 3D Case Model](path/to/your/3d_model_screenshot.png)
+![Fusion 360 3D Case Model](images/main.webp)
 
 ### PCB Layout
 *Everything is handwired and doesnt use a PCB*
