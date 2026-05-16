@@ -39,13 +39,21 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ## Bill of Materials (BOM)
 
-| Item | Component | Qty | Estimated Price (INR) | Primary Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **Brain** | ESP32 C3 Mini Development Board | 1 | ₹400 | Robocraze |
-| **Display** | 1.8" TFT LCD Module (ST7735R Driver) | 1 | ₹294 | Robocraze |
-| **Switches** | Akko V3 Creamy Blue Pro (or equivalent) | 3 | ₹350 (Pack of 10) | StacksKB |
-| **Caps** | MOG / XDA Profile Novelty Keycaps | 3 | ₹300 | StacksKB |
-| **Enclosure** | Custom 3D Printed Vertical Case (PLA/PETG) | 1 | ₹200 | Self-printed / Local Hub |
-| **Power** | USB-C Data & Power Cable | 1 | ₹200 | Local Electronics Shop |
-| **Wiring** | 28AWG / 30AWG Silicone Hookup Wire | 1m | ₹50 | Local Electronics Shop |
-| **Total** | | | **~₹1,794** | |
+| Name | Purpose | Qty | Total (USD) | Distributor |
+| --- | --- | --- | --- | --- |
+| **3D PRINTED CASE** | for 3d printing the case to actually put everything inside | 1 | $5.00 | Printing Legion! |
+| **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $1.96 | Amazon |
+| **USB C data cable** | For connecting the display to my pc | 1 | $1.34 | Amazon |
+| **Soldering Iron Kit** | For soldering the pin headers on the esp etc. | 1 | $7.74 | Amazon |
+| **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $13.55 | StacksKB |
+| **Keys** | For adding the play, pause functionality | 1 | $3.91 | StacksKB |
+| **1.8 inch TFT LCD Module** | The Display for actually showing the now playing status | 1 | $2.91 | Robocraze |
+| **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $2.65 | Robocraze (India) |
+
+---
+
+### Additional Costs Summary
+
+* **Tax (USD):** $3.59
+* **Shipping (USD):** $0.56
+* **Grand Total (USD):** $43.21
