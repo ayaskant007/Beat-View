@@ -30,21 +30,24 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 * **Left Switch (Prev)** -> ESP32 GPIO 6 & GND
 * **Middle Switch (Play/Pause)** -> ESP32 GPIO 7 & GND
 * **Right Switch (Next)** -> ESP32 GPIO 8 & GND
+* **Rotary Encoder CLK** -> ESP32 GPIO 0
+* **Rotary Encoder DT** -> ESP32 GPIO 10
+* **Rotary Encoder SW (Click)** -> ESP32 GPIO 20 & GND
 
 ---
 
 ## Bill of Materials (BOM)
 
 | Name | Purpose | Qty | Total (USD) | Distributor |
-| --- | --- | --- | --- | --- |
+| :--- | :--- | :---: | :---: | :--- |
+| **EC11 10K Rotary Encoder - Digital Potentiometer Coding Volume Control with switch - 5 Pin 15mm Half handle (2PCS)** | FOR VOLUME CONTROL | 1 | $1.79 | Amazon |
 | **3D PRINTED CASE** | for 3d printing the case to actually put everything inside | 1 | $5.00 | Printing Legion! |
-| **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $1.96 | Amazon |
+| **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $2.10 | Amazon |
 | **USB C data cable** | For connecting the display to my pc | 1 | $1.34 | Amazon |
-| **Soldering Iron Kit** | For soldering the pin headers on the esp etc. | 1 | $7.74 | Amazon |
-| **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $13.55 | StacksKB |
+| **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $1.04 | MECKEYS |
 | **Keys** | For adding the play, pause functionality | 1 | $3.91 | StacksKB |
 | **1.8 inch TFT LCD Module** | The Display for actually showing the now playing status | 1 | $2.91 | Robocraze |
-| **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $2.65 | Robocraze (India) |
+| **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $4.68 | Amazon |
 
 ---
 
@@ -52,4 +55,4 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 * **Tax (USD):** $3.59
 * **Shipping (USD):** $0.56
-* **Grand Total (USD):** $43.21
+* **Grand Total (USD):** $26.92
