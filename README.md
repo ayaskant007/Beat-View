@@ -53,6 +53,6 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ### Additional Costs Summary
 
-* **Tax (USD):** $3.59
+* **Tax (USD):** $1.03
 * **Shipping (USD):** $0.56
-* **Grand Total (USD):** $26.92
+* **Grand Total (USD):** $25
