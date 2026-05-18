@@ -36,23 +36,41 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ---
 
+#### Reference Pin Map:
+* **TFT LCD VCC** -> ESP32 3.3V / 5V
+* **TFT LCD GND** -> ESP32 GND
+* **TFT LCD CS** -> ESP32 GPIO 1
+* **TFT LCD RESET** -> ESP32 GPIO 2
+* **TFT LCD DC** -> ESP32 GPIO 3
+* **TFT LCD SDA (MOSI)** -> ESP32 GPIO 5
+* **TFT LCD SCK (SCLK)** -> ESP32 GPIO 4
+* **TFT LCD LED** -> ESP32 3.3V
+* **Left Switch (Prev)** -> ESP32 GPIO 6 & GND
+* **Middle Switch (Play/Pause)** -> ESP32 GPIO 7 & GND
+* **Right Switch (Next)** -> ESP32 GPIO 8 & GND
+* **Rotary Encoder CLK** -> ESP32 GPIO 0
+* **Rotary Encoder DT** -> ESP32 GPIO 10
+* **Rotary Encoder SW (Click)** -> ESP32 GPIO 20 & GND
+
+---
+
 ## Bill of Materials (BOM)
 
 | Name | Purpose | Qty | Total (USD) | Distributor |
 | :--- | :--- | :---: | :---: | :--- |
-| **EC11 10K Rotary Encoder - Digital Potentiometer Coding Volume Control with switch - 5 Pin 15mm Half handle (2PCS)** | FOR VOLUME CONTROL | 1 | $1.79 | Amazon |
+| **Rotary Encoder Module** | FOR VOLUME CONTROL | 1 | $0.45 | ROBOCRAZE |
 | **3D PRINTED CASE** | for 3d printing the case to actually put everything inside | 1 | $5.00 | Printing Legion! |
-| **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $2.10 | Amazon |
-| **USB C data cable** | For connecting the display to my pc | 1 | $1.34 | Amazon |
+| **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $1.33 | ROBOCRAZE |
+| **USB C data cable** | For connecting the display to my pc | 1 | $0.71 | Robocraze |
 | **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $1.04 | MECKEYS |
-| **Keys** | For adding the play, pause functionality | 1 | $3.91 | StacksKB |
-| **1.8 inch TFT LCD Module** | The Display for actually showing the now playing status | 1 | $2.91 | Robocraze |
-| **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $4.68 | Amazon |
+| **Key Switches** | For adding the play, pause functionality (HMX Xinhai 63.5g) | 1 | $3.38 | MECKEYS |
+| **1.8 inch TFT LCD Module** | The Display for actually showing the now playing status | 1 | $2.92 | Robocraze |
+| **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $2.65 | Robocraze |
 
 ---
 
 ### Additional Costs Summary
 
-* **Tax (USD):** $1.03
+* **Tax (USD):** $3.59
 * **Shipping (USD):** $0.56
-* **Grand Total (USD):** $25
+* **Grand Total (USD):** $21.63
