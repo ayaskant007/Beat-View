@@ -16,7 +16,7 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 *Everything is handwired and doesnt use a PCB*
 
 ### Wiring Diagram
-![ESP32 C3 Mini to ST7735R Wiring Diagram](images/WIRINGDGRM.png)
+![ESP32 C3 Mini to ST7735R Wiring Diagram](images/WIRINGDGRM1.png)
 
 #### Reference Pin Map
 
@@ -61,4 +61,4 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 * **Tax (USD):** $3.59
 * **Shipping (USD):** $0.56
-* **Grand Total (USD):** $21.63
+* **Grand Total (USD):** $21.630
