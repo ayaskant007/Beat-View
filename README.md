@@ -18,41 +18,46 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 ### Wiring Diagram
 ![ESP32 C3 Mini to ST7735R Wiring Diagram](images/WIRINGDGRM.png)
 
-#### Reference Pin Map:
-* **TFT LCD VCC** -> ESP32 3.3V / 5V
-* **TFT LCD GND** -> ESP32 GND
-* **TFT LCD CS** -> ESP32 GPIO 1
-* **TFT LCD RESET** -> ESP32 GPIO 2
-* **TFT LCD DC** -> ESP32 GPIO 3
-* **TFT LCD SDA (MOSI)** -> ESP32 GPIO 5
-* **TFT LCD SCK (SCLK)** -> ESP32 GPIO 4
-* **TFT LCD LED** -> ESP32 3.3V
-* **Left Switch (Prev)** -> ESP32 GPIO 6 & GND
-* **Middle Switch (Play/Pause)** -> ESP32 GPIO 7 & GND
-* **Right Switch (Next)** -> ESP32 GPIO 8 & GND
-* **Rotary Encoder CLK** -> ESP32 GPIO 0
-* **Rotary Encoder DT** -> ESP32 GPIO 10
-* **Rotary Encoder SW (Click)** -> ESP32 GPIO 20 & GND
+# Wiring
 
----
+## TFT Display (ST7735)
 
-#### Reference Pin Map:
-* **TFT LCD VCC** -> ESP32 3.3V / 5V
-* **TFT LCD GND** -> ESP32 GND
-* **TFT LCD CS** -> ESP32 GPIO 1
-* **TFT LCD RESET** -> ESP32 GPIO 2
-* **TFT LCD DC** -> ESP32 GPIO 3
-* **TFT LCD SDA (MOSI)** -> ESP32 GPIO 5
-* **TFT LCD SCK (SCLK)** -> ESP32 GPIO 4
-* **TFT LCD LED** -> ESP32 3.3V
-* **Left Switch (Prev)** -> ESP32 GPIO 6 & GND
-* **Middle Switch (Play/Pause)** -> ESP32 GPIO 7 & GND
-* **Right Switch (Next)** -> ESP32 GPIO 8 & GND
-* **Rotary Encoder CLK** -> ESP32 GPIO 0
-* **Rotary Encoder DT** -> ESP32 GPIO 10
-* **Rotary Encoder SW (Click)** -> ESP32 GPIO 20 & GND
+| TFT Pin | ESP32-C3 Pin | Notes |
+|---------|-------------|-------|
+| VCC | 3V3 | |
+| GND | GND | |
+| CS | GPIO 1 | |
+| RST | GPIO 2 | |
+| DC / AO | GPIO 3 | |
+| SCK | GPIO 4 | |
+| SDA / MOSI | GPIO 5 | |
+| LED / BL | 3V3 | Via 33Ω resistor |
 
----
+## Rotary Encoder Module
+
+| Encoder Pin | ESP32-C3 Pin | Notes |
+|-------------|-------------|-------|
+| VCC | 3V3 | |
+| GND | GND | |
+| CLK | GPIO 0 | |
+| DT | GPIO 10 | |
+| SW | GPIO 20 | |
+
+## Key Switches
+
+| Switch | ESP32-C3 Pin | Other Pin | Notes |
+|--------|-------------|-----------|-------|
+| BTN_PREV | GPIO 6 | GND | INPUT_PULLUP, no resistor needed |
+| BTN_PLAY | GPIO 7 | GND | INPUT_PULLUP, no resistor needed |
+| BTN_NEXT | GPIO 8 | GND | INPUT_PULLUP, no resistor needed |
+
+## Power
+
+| Rail | Feeds |
+|------|-------|
+| 3V3 | TFT VCC, TFT LED (via 33Ω), Encoder VCC |
+| GND | TFT GND, Encoder GND, all button pin 2s |
+| USB-C | Powers the ESP32 |
 
 ## Bill of Materials (BOM)
 
