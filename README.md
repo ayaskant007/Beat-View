@@ -61,4 +61,4 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 * **Tax (USD):** $3.59
 * **Shipping (USD):** $0.56
-* **Grand Total (USD):** $21.63
+* **Grand Total (USD):** $21.630
