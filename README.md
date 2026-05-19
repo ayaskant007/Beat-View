@@ -54,11 +54,12 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 | **Key Switches** | For adding the play, pause functionality (HMX Xinhai 63.5g) | 1 | $3.38 | MECKEYS |
 | **1.8 inch TFT LCD Module** | The Display for actually showing the now playing status | 1 | $2.92 | Robocraze |
 | **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $2.65 | Robocraze |
+| **SANDPAPER** | FOR SANDING AND SMOOTHING THE CASE FOR BETTER ADHESION. | 1 | $3.63 | Amazon |
 
 ---
 
 ### Additional Costs Summary
 
-* **Tax (USD):** $3.59
-* **Shipping (USD):** $0.56
-* **Grand Total (USD):** $21.630
+* **Tax (USD):** $1.37
+* **Shipping (USD):** $1.56
+* **Grand Total (USD):** $24.04
