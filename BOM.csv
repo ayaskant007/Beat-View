@@ -1,10 +1,13 @@
 Name,Purpose,Quantity,Total Cost (USD),Link,Distributor
-"SANDPAPER","FOR SANDING AND SMOOTHING THE CASE FOR BETTER ADHESION",1,3.63,"https://www.amazon.in/Premium-Automotive-Woodworking-Furniture-Finishing/dp/B0CCW36FQ1?crid=UWQE7LL6D0E&dib=eyJ2IjoiMSJ9.jgtWsdkFJ6-lH-c969cwSs02RG-93N8jElQIf_8llUMOcztzivYgRqrDcOrRABxhwEFsxBYzaLioCKGsiJKC-tFnIoApbvcYvih5p42yVE5HkgQexNdoM4_7CdgTs5vM0domrYnWFcDNGTWiA-txc9WkEEVpictePQtzJwMOLOzmr72LQMIQJNfPa6mxkLQ28cjeQVB2XLpV1_HbSYS6uIm84PseZAYeZUiaMSYwbFGs49Tvmlsj7vYBuZOL7DtdGhGxZvyTbgKvqOBoDwY_v9JizsAgyrc4M_Anb40aMsc.X3J7wSE-4Mns_rBlmTJ6j76-rpYtTZB-8w83OvsY9Q0&dib_tag=se&keywords=wet%2Bsandpaper&qid=1779196656&sprefix=wetsandpaper%2Caps%2C267&sr=8-5&th=1","Amazon"
-"Rotary Encoder Module","FOR VOLUME CONTROL",1,0.45,"https://robocraze.com/products/rotary-encoder-module?variant=40193048543385","ROBOCRAZE"
-"3D PRINTED CASE","for 3d printing the case to actually put everything inside",1,5.00,"","Printing Legion!"
-"Breadboard Jumper Wires","For connecting the pin headers of the ESP to the display and the key switches",1,1.33,"https://robocraze.com/products/jumper-wire-set-m2m-m2f-f2f-40-pcs-each?variant=40192573636761","ROBOCRAZE"
-"USB C data cable","For connecting the display to my pc",1,0.71,"https://robocraze.com/products/type-c-usb-cable-1-metre?variant=40193636303001","Robocraze"
-"Keycaps","For the keys for playing, pausing etc etc.",1,1.04,"https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/blank-dsa-keycaps-1u/?attribute_pa_variations=red","MECKEYS"
-"Key Switches","For adding the play, pause functionality",1,3.38,"https://meckeys.com/shop/accessories/keyboard-accessories/key-switches/hmx-xinhai-switch/?attribute_pa_key-switches=hmx-xinhai-63-5g","MECKEYS"
-"1.8 inch TFT LCD Module","The Display for actually showing the now playing status",1,2.92,"https://robocraze.com/products/1-8-inch-tft-lcd-module","Robocraze"
-"ESP32-C3 Mini Development Board - Unsoldered","Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows.",1,2.65,"https://robocraze.com/products/esp32-c3-mini-development-board-unsoldered?variant=48465411506400","Robocraze"
+SANDPAPER,FOR SANDING AND SMOOTHING THE CASE FOR BETTER ADHESION,1,3.63,https://www.amazon.in/Premium-Automotive-Woodworking-Furniture-Finishing/dp/B0CCW36FQ1?crid=UWQE7LL6D0E&dib=eyJ2IjoiMSJ9.jgtWsdkFJ6-lH-c969cwSs02RG-93N8jElQIf_8llUMOcztzivYgRqrDcOrRABxhwEFsxBYzaLioCKGsiJKC-tFnIoApbvcYvih5p42yVE5HkgQexNdoM4_7CdgTs5vM0domrYnWFcDNGTWiA-txc9WkEEVpictePQtzJwMOLOzmr72LQMIQJNfPa6mxkLQ28cjeQVB2XLpV1_HbSYS6uIm84PseZAYeZUiaMSYwbFGs49Tvmlsj7vYBuZOL7DtdGhGxZvyTbgKvqOBoDwY_v9JizsAgyrc4M_Anb40aMsc.X3J7wSE-4Mns_rBlmTJ6j76-rpYtTZB-8w83OvsY9Q0&dib_tag=se&keywords=wet%2Bsandpaper&qid=1779196656&sprefix=wetsandpaper%2Caps%2C267&sr=8-5&th=1,Amazon
+Rotary Encoder Module,FOR VOLUME CONTROL,1,0.45,https://robocraze.com/products/rotary-encoder-module?variant=40193048543385,ROBOCRAZE
+3D PRINTED CASE,for 3d printing the case to actually put everything inside,1,5,,Printing Legion!
+Breadboard Jumper Wires,For connecting the pin headers of the ESP to the display and the key switches,1,1.33,https://robocraze.com/products/jumper-wire-set-m2m-m2f-f2f-40-pcs-each?variant=40192573636761,ROBOCRAZE
+USB C data cable,For connecting the display to my pc,1,0.71,https://robocraze.com/products/type-c-usb-cable-1-metre?variant=40193636303001,Robocraze
+Keycaps,"For the keys for playing, pausing etc etc.",1,1.04,https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/blank-dsa-keycaps-1u/?attribute_pa_variations=red,MECKEYS
+Key Switches,"For adding the play, pause functionality",1,3.38,https://meckeys.com/shop/accessories/keyboard-accessories/key-switches/hmx-xinhai-switch/?attribute_pa_key-switches=hmx-xinhai-63-5g,MECKEYS
+1.8 inch TFT LCD Module,The Display for actually showing the now playing status,1,2.92,https://robocraze.com/products/1-8-inch-tft-lcd-module,Robocraze
+ESP32-C3 Mini Development Board - Unsoldered,Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows.,1,2.65,https://robocraze.com/products/esp32-c3-mini-development-board-unsoldered?variant=48465411506400,Robocraze
+Tax (USD),,,1.37,,
+Shipping (USD),,,1.56,,
+,,,24.04,,
