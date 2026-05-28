@@ -31,15 +31,15 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 |  | **SCL / SCK** | **`4`** | **Native Hardware SPI Clock** |
 |  | **LED / BL** | **`3.3V`** | Keeps backlight on full brightness |
 |  |  |  |  |
-| **HMX Xinhai Switches** | **Prev Switch Pin 1** | **`5`** | Safe general pin |
-| *(Orientation doesn't* | **Play Switch Pin 1** | **`7`** | Safe general pin |
-| *matter for switches)* | **Next Switch Pin 1** | **`TX` (GPIO 21)** | Safe! Avoids the GPIO 8 boot-loop trap. |
-|  | **ALL Switch Pin 2s** | **`GND`** | Daisy-chain these to any ESP32 GND. |
+| **HMX Xinhai Switches** | **Prev Switch Pin 1** | **`5`** | 
+| *(Orientation doesn't* | **Play Switch Pin 1** | **`7`** | 
+| *matter for switches)* | **Next Switch Pin 1** | **`TX` (GPIO 21)** | 
+|  | **ALL Switch Pin 2s** | **`GND`** | 
 |  |  |  |  |
-| **Rotary Encoder** | **CLK (or A)** | **`0`** | Safe general pin |
+| **Rotary Encoder** | **CLK (or A)** | **`0`** | 
 |  | **DT (or B)** | **`10`** | Safe general pin |
-|  | **SW (Button Pin 1)** | **`RX` (GPIO 20)** | Safe general pin |
-|  | **GND & Button Pin 2** | **`GND`** | Wire both grounds on the encoder to ESP GND. |
+|  | **SW (Button Pin 1)** | **`RX` (GPIO 20)** | 
+|  | **GND & Button Pin 2** | **`GND`** | 
 
 ---
 
