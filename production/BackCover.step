@@ -10,7 +10,7 @@ FILE_DESCRIPTION(
 
 FILE_NAME(
 /* name */ 'BackCover.step',
-/* time_stamp */ '2026-05-18T02:00:30+05:30',
+/* time_stamp */ '2026-05-28T11:43:07+05:30',
 /* author */ (''),
 /* organization */ (''),
 /* preprocessor_version */ 'ST-DEVELOPER v20.1',
@@ -932,7 +932,7 @@ SOLID_ANGLE_UNIT()
 #879=PRODUCT_DEFINITION_SHAPE('',$,#882);
 #880=SHAPE_REPRESENTATION('',(#534),#872);
 #881=PRODUCT_DEFINITION_CONTEXT('part definition',#886,'design');
-#882=PRODUCT_DEFINITION('2026-05-18-02-00-30-330','BackCover',#883,#881);
+#882=PRODUCT_DEFINITION('2026-05-28-11-43-07-051','BackCover',#883,#881);
 #883=PRODUCT_DEFINITION_FORMATION('',$,#888);
 #884=PRODUCT_RELATED_PRODUCT_CATEGORY('BackCover','BackCover',(#888));
 #885=APPLICATION_PROTOCOL_DEFINITION('international standard',
@@ -940,7 +940,7 @@ SOLID_ANGLE_UNIT()
 #886=APPLICATION_CONTEXT(
 'Core Data for Automotive Mechanical Design Process');
 #887=PRODUCT_CONTEXT('part definition',#886,'mechanical');
-#888=PRODUCT('2026-05-18-02-00-30-330','BackCover',$,(#887));
+#888=PRODUCT('2026-05-28-11-43-07-051','BackCover',$,(#887));
 #889=PRESENTATION_STYLE_ASSIGNMENT((#890));
 #890=SURFACE_STYLE_USAGE(.BOTH.,#891);
 #891=SURFACE_SIDE_STYLE('',(#892));
