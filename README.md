@@ -20,26 +20,28 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 #### Reference Pin Map
 
-| Component Pin | ESP32-C3 Mini GPIO | KiCad Net Name | Configuration / Notes |
-| :--- | :---: | :--- | :--- |
-| **TFT LCD VCC** | **3.3V** | `+3V3` | Main logic power |
-| **TFT LCD GND** | **GND** | `GND` | Ground reference |
-| **TFT LCD CS** | **GPIO 1** | `TFT_CS` | Chip Select |
-| **TFT LCD RESET** | **GPIO 2** | `TFT_RST` | Hardware Reset |
-| **TFT LCD DC** | **GPIO 3** | `TFT_DC` | Data / Command Select |
-| **TFT LCD SCK (SCLK)**| **GPIO 4** | `SPI_SCK` | Software/Hardware SPI Clock |
-| **TFT LCD SDA (MOSI)**| **GPIO 5** | `SPI_MOSI` | Software/Hardware SPI Data |
-| **TFT LCD LED** | **3.3V** | `+3V3` | Backlight (Always-on, max brightness) |
-| | | | |
-| **Left Switch (Prev)**| **GPIO 6** | `BTN_PREV` | Connects pin to GND when pressed |
-| **Middle Switch (Play)**| **GPIO 7** | `BTN_PLAY` | Connects pin to GND when pressed |
-| **Right Switch (Next)**| **GPIO 8** | `BTN_NEXT` | Connects pin to GND when pressed |
-| | | | |
-| **Encoder Module CLK**| **GPIO 0** | `ENC_CLK` | Quadrature Output A |
-| **Encoder Module DT** | **GPIO 10** | `ENC_DT` | Quadrature Output B |
-| **Encoder Module SW** | **GPIO 20** | `ENC_SW` | Push Button Click |
-| **Encoder Module +** | **3.3V** | `+3V3` | Powers onboard pull-up resistors |
-| **Encoder Module GND**| **GND** | `GND` | Shared ground reference |
+| Physical Component | Component Pin Label | Wire to ESP32-C3 Mini Pin |  |
+| --- | --- | --- | --- |
+| **1.8" TFT (ST7735R)** | **VCC** | **`3.3V`** | Main power |
+|  | **GND** | **`GND`** | Ground reference |
+|  | **CS** | **`2`** | Strapping pin safe (Display naturally keeps this high) |
+|  | **RESET / RST** | **`1`** | Safe general pin |
+|  | **DC / RS** | **`3`** | Safe general pin |
+|  | **SDA / MOSI** | **`6`** | **Native Hardware SPI (Ultra-fast graphics)** |
+|  | **SCL / SCK** | **`4`** | **Native Hardware SPI Clock** |
+|  | **LED / BL** | **`3.3V`** | Keeps backlight on full brightness |
+|  |  |  |  |
+| **HMX Xinhai Switches** | **Prev Switch Pin 1** | **`5`** | 
+| *(Orientation doesn't* | **Play Switch Pin 1** | **`7`** | 
+| *matter for switches)* | **Next Switch Pin 1** | **`TX` (GPIO 21)** | 
+|  | **ALL Switch Pin 2s** | **`GND`** | 
+|  |  |  |  |
+| **Rotary Encoder** | **CLK (or A)** | **`0`** | 
+|  | **DT (or B)** | **`10`** | Safe general pin |
+|  | **SW (Button Pin 1)** | **`RX` (GPIO 20)** | 
+|  | **GND & Button Pin 2** | **`GND`** | 
+
+---
 
 
 ## Bill of Materials (BOM)
