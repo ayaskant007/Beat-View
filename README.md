@@ -21,7 +21,7 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 #### Reference Pin Map
 
 | Physical Component | Component Pin Label | Wire to ESP32-C3 Mini Pin |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | **1.8" TFT (ST7735R)** | **VCC** | **`3.3V`** |
 |  | **GND** | **`GND`** |
 |  | **CS** | **`2`** |
