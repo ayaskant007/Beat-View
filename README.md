@@ -22,20 +22,20 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 | Physical Component | Component Pin Label | Wire to ESP32-C3 Mini Pin |  |
 | --- | --- | --- | --- |
-| **1.8" TFT (ST7735R)** | **VCC** | **`3.3V`** | Main power |
-|  | **GND** | **`GND`** | Ground reference |
-|  | **CS** | **`2`** | Strapping pin safe (Display naturally keeps this high) |
-|  | **RESET / RST** | **`1`** | Safe general pin |
-|  | **DC / RS** | **`3`** | Safe general pin |
-|  | **SDA / MOSI** | **`6`** | **Native Hardware SPI (Ultra-fast graphics)** |
-|  | **SCL / SCK** | **`4`** | **Native Hardware SPI Clock** |
-|  | **LED / BL** | **`3.3V`** | Keeps backlight on full brightness |
+| **1.8" TFT (ST7735R)** | **VCC** | **`3.3V`** |
+|  | **GND** | **`GND`** |
+|  | **CS** | **`2`** |
+|  | **RESET / RST** | **`1`** |
+|  | **DC / RS** | **`3`** |
+|  | **SDA / MOSI** | **`6`** |
+|  | **SCL / SCK** | **`4`** |
+|  | **LED / BL** | **`3.3V`** |
 | **HMX Xinhai Switches** | **Prev Switch Pin 1** | **`5`** | 
 | *(Orientation doesn't* | **Play Switch Pin 1** | **`7`** | 
 | *matter for switches)* | **Next Switch Pin 1** | **`TX` (GPIO 21)** | 
 |  | **ALL Switch Pin 2s** | **`GND`** | 
 | **Rotary Encoder** | **CLK (or A)** | **`0`** | 
-|  | **DT (or B)** | **`10`** | Safe general pin |
+|  | **DT (or B)** | **`10`** |  |
 |  | **SW (Button Pin 1)** | **`RX` (GPIO 20)** | 
 |  | **GND & Button Pin 2** | **`GND`** | 
 
