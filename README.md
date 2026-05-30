@@ -34,7 +34,6 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 | *(Orientation doesn't* | **Play Switch Pin 1** | **`7`** | 
 | *matter for switches)* | **Next Switch Pin 1** | **`TX` (GPIO 21)** | 
 |  | **ALL Switch Pin 2s** | **`GND`** | 
-|  |  |  |  |
 | **Rotary Encoder** | **CLK (or A)** | **`0`** | 
 |  | **DT (or B)** | **`10`** | Safe general pin |
 |  | **SW (Button Pin 1)** | **`RX` (GPIO 20)** | 
