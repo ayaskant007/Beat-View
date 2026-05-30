@@ -30,7 +30,6 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 |  | **SDA / MOSI** | **`6`** | **Native Hardware SPI (Ultra-fast graphics)** |
 |  | **SCL / SCK** | **`4`** | **Native Hardware SPI Clock** |
 |  | **LED / BL** | **`3.3V`** | Keeps backlight on full brightness |
-|  |  |  |  |
 | **HMX Xinhai Switches** | **Prev Switch Pin 1** | **`5`** | 
 | *(Orientation doesn't* | **Play Switch Pin 1** | **`7`** | 
 | *matter for switches)* | **Next Switch Pin 1** | **`TX` (GPIO 21)** | 
