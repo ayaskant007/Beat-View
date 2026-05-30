@@ -49,7 +49,6 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 | Name | Purpose | Qty | Total (USD) | Distributor |
 | :--- | :--- | :---: | :---: | :--- |
 | **Rotary Encoder Module** | FOR VOLUME CONTROL | 1 | $0.45 | ROBOCRAZE |
-| **3D PRINTED CASE** | for 3d printing the case to actually put everything inside | 1 | $5.00 | Printing Legion! |
 | **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $1.33 | ROBOCRAZE |
 | **USB C data cable** | For connecting the display to my pc | 1 | $0.71 | Robocraze |
 | **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $1.04 | MECKEYS |
@@ -64,4 +63,4 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 * **Tax (USD):** $1.37
 * **Shipping (USD):** $1.56
-* **Grand Total (USD):** $24.04
+* **Grand Total (USD):** $19.04
