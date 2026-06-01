@@ -11,6 +11,7 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ### 3D Model Render
 ![Fusion 360 3D Case Model](images/main.webp)
+<img width="807" height="552" alt="image" src="https://github.com/user-attachments/assets/258c9b27-efcb-4cda-bb8c-5aa2df21411c" />
 
 ### PCB Layout
 *Everything is handwired and doesnt use a PCB*
@@ -44,16 +45,18 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ## Bill of Materials (BOM)
 
-| Name | Purpose | Qty | Total (USD) | Distributor |
-| :--- | :--- | :---: | :---: | :--- |
-| **Rotary Encoder Module** | FOR VOLUME CONTROL | 1 | $0.45 | ROBOCRAZE |
-| **Breadboard Jumper Wires** | For connecting the pin headers of the ESP to the display and the key switches | 1 | $1.33 | ROBOCRAZE |
-| **USB C data cable** | For connecting the display to my pc | 1 | $0.71 | Robocraze |
-| **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $1.04 | MECKEYS |
-| **Key Switches** | For adding the play, pause functionality (HMX Xinhai 63.5g) | 1 | $3.38 | MECKEYS |
-| **1.8 inch TFT LCD Module** | The Display for actually showing the now playing status | 1 | $2.92 | Robocraze |
-| **ESP32-C3 Mini Development Board - Unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $2.65 | Robocraze |
-| **SANDPAPER** | FOR SANDING AND SMOOTHING THE CASE FOR BETTER ADHESION. | 1 | $0 | Amazon |
+
+| Name | Purpose | Qty | Total (USD) | Distributor | Link |
+| :--- | :--- | :---: | :---: | :--- | :--- |
+| **Rotary encoder module** | For volume control | 1 | $0.45 | Robocraze | https://robocraze.com/products/rotary-encoder-module?variant=40193048543385 |
+| **Breadboard jumper wires** | For connecting the pin headers of the esp to the display and the key switches | 1 | $1.33 | Robocraze | [https://robocraze.com](https://robocraze.com/products/jumper-wire-set-m2m-m2f-f2f-40-pcs-each?variant=40192573636761) |
+| **USB C data cable** | For connecting the display to my pc | 1 | $0.71 | Robocraze | [https://robocraze.com](https://robocraze.com/products/type-c-usb-cable-1-metre?variant=40193636303001) |
+| **Keycaps** | For the keys for playing, pausing etc etc. | 1 | $1.04 | Meckeys | [https://meckeys.com](https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/blank-dsa-keycaps-1u/?attribute_pa_variations=red) |
+| **Key switches** | For adding the play, pause functionality (HMX Xinhai 63.5g) | 1 | $3.38 | Meckeys | [https://meckeys.com](https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/blank-dsa-keycaps-1u/?attribute_pa_variations=red) |
+| **1.8 inch TFT LCD module** | The display for actually showing the now playing status | 1 | $2.92 | Robocraze | [https://robocraze.com](https://robocraze.com/products/1-8-inch-tft-lcd-module) |
+| **ESP32-C3 mini development board - unsoldered** | Main board for actually making the display work by fetching the data from spotify and also controlling what the display shows. | 1 | $2.65 | Robocraze | https://robocraze.com/products/esp32-c3-mini-development-board-unsoldered?variant=48465411506400 |
+| **Sandpaper** | For sanding and smoothing the case for better adhesion. | 1 | $0 | Amazon | - |
+
 
 ---
 
