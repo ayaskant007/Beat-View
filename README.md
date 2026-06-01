@@ -11,6 +11,7 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ### 3D Model Render
 ![Fusion 360 3D Case Model](images/main.webp)
+<img width="807" height="552" alt="image" src="https://github.com/user-attachments/assets/258c9b27-efcb-4cda-bb8c-5aa2df21411c" />
 
 ### PCB Layout
 *Everything is handwired and doesnt use a PCB*
