@@ -782,7 +782,7 @@ void loop() {
     frameId++;
     
     // Scroll logic with pause at start
-    if (scrolling && !volVisible) {
+    if (scrolling && !volVisible && !artReceiving && !artAwaitTerm) {
       if (t - tScrollPause > SCROLL_PAUSE && t - tScroll >= T_SCROLL) {
         tScroll = t;
         scrollX -= 1;
@@ -793,7 +793,9 @@ void loop() {
       }
     }
     
-    drawBody();
-    drawFooter();   // redraw for pulse animation
+    if (!artReceiving && !artAwaitTerm) {
+      drawBody();
+      drawFooter();   // redraw for pulse animation
+    }
   }
 }

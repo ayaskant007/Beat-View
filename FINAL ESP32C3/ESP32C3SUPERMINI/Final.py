@@ -139,8 +139,17 @@ def find_port() -> Optional[str]:
 
 # ---------------- Windows media reading ----------------
 
-async def get_session():
-    manager = await MediaManager.request_async()
+async def run_async_with_timeout(coro, timeout=1.5, default=None):
+    try:
+        return await asyncio.wait_for(coro, timeout=timeout)
+    except Exception as e:
+        print(f"[warn] winsdk operation timed out or failed: {e}")
+        return default
+
+
+async def get_session(manager):
+    if not manager:
+        return None
     try:
         current = manager.get_current_session()
     except Exception:
@@ -172,17 +181,19 @@ async def get_session():
 
 
 async def read_thumbnail_bytes(media) -> bytes:
+    # Not directly used since we read inline with timeout, but kept for compatibility.
     thumb = getattr(media, "thumbnail", None)
     if thumb is None:
         return b""
     try:
-        stream = await thumb.open_read_async()
-        size = stream.size
-        if size <= 0:
+        stream = await run_async_with_timeout(thumb.open_read_async(), timeout=2.0)
+        if not stream or stream.size <= 0:
             return b""
         reader = DataReader(stream.get_input_stream_at(0))
         reader.input_stream_options = InputStreamOptions.READ_AHEAD
-        await reader.load_async(size)
+        loaded = await run_async_with_timeout(reader.load_async(stream.size), timeout=2.0)
+        if not loaded:
+            return b""
         data = bytearray(reader.unconsumed_buffer_length)
         reader.read_bytes(data)
         return bytes(data)
@@ -282,12 +293,9 @@ def short_app_name(app_id: str) -> str:
     return base[:12] if base else "Player"
 
 
-async def read_media(include_art: bool = True) -> TrackInfo:
+async def read_media(manager, include_art: bool = True) -> TrackInfo:
     info = TrackInfo()
-    try:
-        session = await get_session()
-    except Exception:
-        session = None
+    session = await get_session(manager)
 
     if session is None:
         info.title = "No active session"
@@ -296,13 +304,14 @@ async def read_media(include_art: bool = True) -> TrackInfo:
         return info
 
     try:
-        media = await session.try_get_media_properties_async()
+        media = await run_async_with_timeout(session.try_get_media_properties_async(), timeout=1.5)
         timeline = session.get_timeline_properties()
         playback = session.get_playback_info()
 
-        info.title = str(getattr(media, "title", "") or "")
-        info.artist = str(getattr(media, "artist", "") or "")
-        info.album = str(getattr(media, "album_title", "") or "")
+        if media:
+            info.title = str(getattr(media, "title", "") or "")
+            info.artist = str(getattr(media, "artist", "") or "")
+            info.album = str(getattr(media, "album_title", "") or "")
         info.app = short_app_name(
             str(getattr(session, "source_app_user_model_id", "") or ""))
 
@@ -313,7 +322,13 @@ async def read_media(include_art: bool = True) -> TrackInfo:
             info.playing = False
 
         try:
-            info.position_ms = int(timeline.position.total_seconds() * 1000)
+            import datetime
+            now_utc = datetime.datetime.now(datetime.timezone.utc)
+            elapsed = (now_utc - timeline.last_updated_time).total_seconds()
+            pos_s = timeline.position.total_seconds()
+            if info.playing:
+                pos_s += elapsed
+            info.position_ms = int(pos_s * 1000)
         except Exception:
             pass
         try:
@@ -321,24 +336,25 @@ async def read_media(include_art: bool = True) -> TrackInfo:
         except Exception:
             pass
 
-        if include_art:
+        if include_art and media:
             try:
                 thumb = getattr(media, "thumbnail", None)
                 if thumb is not None:
-                    stream = await thumb.open_read_async()
-                    if stream.size > 0:
+                    stream = await run_async_with_timeout(thumb.open_read_async(), timeout=2.0)
+                    if stream and stream.size > 0:
                         reader = DataReader(stream.get_input_stream_at(0))
                         reader.input_stream_options = InputStreamOptions.READ_AHEAD
-                        await reader.load_async(stream.size)
-                        thumb_bytes = bytearray(reader.unconsumed_buffer_length)
-                        reader.read_bytes(thumb_bytes)
-                        if thumb_bytes:
-                            img = Image.open(io.BytesIO(bytes(thumb_bytes)))
-                            img.load()
-                            info.theme_rgb = extract_theme_color(img)
-                            info.art_bytes = image_to_rgb565_bytes(img, ALBUM_SIZE)
-                            info.art_w = ALBUM_SIZE
-                            info.art_h = ALBUM_SIZE
+                        loaded = await run_async_with_timeout(reader.load_async(stream.size), timeout=2.0)
+                        if loaded:
+                            thumb_bytes = bytearray(reader.unconsumed_buffer_length)
+                            reader.read_bytes(thumb_bytes)
+                            if thumb_bytes:
+                                img = Image.open(io.BytesIO(bytes(thumb_bytes)))
+                                img.load()
+                                info.theme_rgb = extract_theme_color(img)
+                                info.art_bytes = image_to_rgb565_bytes(img, ALBUM_SIZE)
+                                info.art_w = ALBUM_SIZE
+                                info.art_h = ALBUM_SIZE
             except Exception as e:
                 # Album art is optional; never let it block track metadata updates.
                 print(f"[warn] Failed to load album art: {e}")
@@ -356,7 +372,7 @@ async def read_media(include_art: bool = True) -> TrackInfo:
 
 # ---------------- Commands ----------------
 
-async def send_command(cmd: str, vol_ctrl: VolumeController) -> bool:
+async def send_command(cmd: str, vol_ctrl: VolumeController, manager) -> bool:
     cmd = cmd.strip().upper()
 
     # Local volume commands first
@@ -376,27 +392,28 @@ async def send_command(cmd: str, vol_ctrl: VolumeController) -> bool:
 
     # Media commands
     try:
-        session = await get_session()
+        session = await get_session(manager)
         if session is None:
             return False
         if cmd == "TOGGLE":
-            await session.try_toggle_play_pause_async()
+            await run_async_with_timeout(session.try_toggle_play_pause_async(), timeout=1.5)
             return True
         if cmd == "PLAY":
-            await session.try_play_async()
+            await run_async_with_timeout(session.try_play_async(), timeout=1.5)
             return True
         if cmd == "PAUSE":
-            await session.try_pause_async()
+            await run_async_with_timeout(session.try_pause_async(), timeout=1.5)
             return True
         if cmd == "NEXT":
-            await session.try_skip_next_async()
+            await run_async_with_timeout(session.try_skip_next_async(), timeout=1.5)
             return True
         if cmd == "PREV":
-            await session.try_skip_previous_async()
+            await run_async_with_timeout(session.try_skip_previous_async(), timeout=1.5)
             return True
     except Exception:
         return False
     return False
+
 
 
 # ---------------- Serial framing ----------------
@@ -417,13 +434,13 @@ def send_album(ser: serial.Serial, info: TrackInfo):
         ser.write(b"ART|0|0|0\n")
         ser.flush()
         return
-    print(f"[info] Sending album art ({len(info.art_bytes)} bytes) in 32-byte chunks...")
+    print(f"[info] Sending album art ({len(info.art_bytes)} bytes) in 64-byte chunks...")
     header = f"ART|{info.art_w}|{info.art_h}|{len(info.art_bytes)}\n".encode()
     ser.write(header)
     ser.flush()
     
-    # Send art in smaller 32-byte chunks with 2ms delay to prevent buffer overflow
-    chunk_size = 32
+    # Send art in 64-byte chunks with 2ms delay to prevent buffer overflow
+    chunk_size = 64
     for i in range(0, len(info.art_bytes), chunk_size):
         chunk = info.art_bytes[i:i + chunk_size]
         ser.write(chunk)
@@ -461,25 +478,63 @@ async def main():
     ser = None
     while ser is None:
         try:
-            ser = serial.Serial(port, BAUD, timeout=0.05)
+            # timeout=0 makes reads non-blocking
+            ser = serial.Serial(port, BAUD, timeout=0)
         except SerialException as e:
             print(f"[warn] Could not open {port}: {e}")
             print("[info] Close Arduino Serial Monitor or any app using the port; retrying in 2s...")
             await asyncio.sleep(2)
     time.sleep(2.5)  # let ESP32 boot and enter loop()
+    ser.write(b"\n\n\n")
+    ser.flush()
+    await asyncio.sleep(0.1)
     startup_time = time.time()
+
+    # Instantiate the MediaManager once
+    manager = None
+    while manager is None:
+        try:
+            manager = await run_async_with_timeout(MediaManager.request_async(), timeout=3.0)
+            if manager is None:
+                print("[warn] MediaManager creation timed out. Retrying in 2s...")
+                await asyncio.sleep(2)
+        except Exception as e:
+            print(f"[warn] Could not create MediaManager: {e}. Retrying in 2s...")
+            await asyncio.sleep(2)
 
     vol_ctrl = VolumeController()
 
     last_track_key = ""
     last_art_key = ""
     last_send = 0.0
+    song_end_time = None       # wall-clock time when current song is expected to finish
+    song_end_track = ""        # track identity that the timer is set for
 
     async def poll_media_loop():
         nonlocal last_track_key, last_art_key, last_send
+        nonlocal song_end_time, song_end_track
+        
+        current_active_track = ""
+        active_theme_rgb = (0, 200, 255)
+        active_art_bytes = b""
+        
         while True:
             try:
-                info = await read_media(include_art=True)
+                # 1. Fetch metadata without art
+                info = await read_media(manager, include_art=False)
+                
+                track_id = f"{info.artist}|{info.title}"
+                if track_id != current_active_track:
+                    # 2. Track changed, fetch with art
+                    info = await read_media(manager, include_art=True)
+                    current_active_track = track_id
+                    active_theme_rgb = info.theme_rgb
+                    active_art_bytes = info.art_bytes
+                else:
+                    # 3. Carry over active track properties
+                    info.theme_rgb = active_theme_rgb
+                    info.art_bytes = active_art_bytes
+
                 cur_vol = vol_ctrl.get()
 
                 line = make_track_line(info, cur_vol)
@@ -490,16 +545,73 @@ async def main():
                 if track_key != last_track_key or now - last_send >= 1.0:
                     if track_key != last_track_key:
                         print(f"[info] Sending track: {info.title} - {info.artist} ({info.app})")
+                    else:
+                        pos_str = f"{info.position_ms // 60000}:{(info.position_ms // 1000) % 60:02d}"
+                        dur_str = f"{info.duration_ms // 60000}:{(info.duration_ms // 1000) % 60:02d}"
+                        print(f"[progress] {pos_str} / {dur_str} (playing: {info.playing})")
                     ser.write(line.encode("utf-8"))
                     ser.flush()
                     last_send = now
                     last_track_key = track_key
 
-                # Send art only when track actually changes
+                # Send art only when track changes
                 art_key = f"{info.artist}|{info.title}|{len(info.art_bytes)}"
                 if art_key != last_art_key:
                     send_album(ser, info)
                     last_art_key = art_key
+
+                # --- Auto-restart and track change detection ---
+                cur_track_id = f"{info.artist}|{info.title}"
+                is_fallback = info.title in ("No active session", "No track playing", "Media error")
+                
+                if info.playing and info.duration_ms > 0 and info.position_ms >= 0 and not is_fallback:
+                    remaining_ms = info.duration_ms - info.position_ms
+                    remaining_s = max(0.0, remaining_ms / 1000.0)
+                    
+                    if cur_track_id != song_end_track:
+                        # Transitioned from one real track to another
+                        was_fallback = (
+                            "No active session" in song_end_track or 
+                            "No track playing" in song_end_track or 
+                            "Media error" in song_end_track or
+                            song_end_track == ""
+                        )
+                        if not was_fallback:
+                            print(f"[auto] Track changed from '{song_end_track}' to '{cur_track_id}'. Restarting...")
+                            restart_program(ser)
+                        
+                        song_end_track = cur_track_id
+                        song_end_time = now + remaining_s + 3.0  # 3s buffer
+                        mins = int(remaining_s) // 60
+                        secs = int(remaining_s) % 60
+                        print(f"[auto] Track initialized: '{cur_track_id}'. Ends in ~{mins}:{secs:02d} + 3s buffer.")
+                    else:
+                        if song_end_time is None:
+                            # Resumed playing after a pause
+                            song_end_time = now + remaining_s + 3.0
+                            mins = int(remaining_s) // 60
+                            secs = int(remaining_s) % 60
+                            print(f"[auto] Resumed playback. Restart scheduled in ~{mins}:{secs:02d} + 3s buffer.")
+                        else:
+                            # Check for significant seek/scrub drift
+                            expected_remaining_s = song_end_time - now
+                            actual_remaining_s = remaining_s + 3.0
+                            if abs(expected_remaining_s - actual_remaining_s) > 2.0:
+                                song_end_time = now + remaining_s + 3.0
+                                mins = int(remaining_s) // 60
+                                secs = int(remaining_s) % 60
+                                print(f"[auto] Seek/scrub detected. Restart rescheduled in ~{mins}:{secs:02d} + 3s buffer.")
+                else:
+                    # Paused, stopped, or fallback track
+                    song_end_time = None
+                    if cur_track_id != song_end_track:
+                        song_end_track = cur_track_id
+
+                # Check if the expected end time has been reached
+                if song_end_time is not None and now >= song_end_time:
+                    print("[auto] Expected end time reached. Restarting to load next song...")
+                    restart_program(ser)
+
             except Exception as e:
                 print(f"[poll error] {e}")
 
@@ -509,9 +621,11 @@ async def main():
         buf = b""
         while True:
             try:
+                # non-blocking read because timeout=0
                 data = ser.read(256)
-            except Exception:
-                await asyncio.sleep(0.1)
+            except Exception as e:
+                print(f"[serial error] {e}")
+                await asyncio.sleep(0.5)
                 continue
             if data:
                 buf += data
@@ -524,7 +638,7 @@ async def main():
                         parts = text[4:].split(":")
                         action = parts[0]
                         if action == "VOL" and len(parts) >= 2:
-                            await send_command(f"VOL:{parts[1]}", vol_ctrl)
+                            await send_command(f"VOL:{parts[1]}", vol_ctrl, manager)
                         else:
                             if action in ("NEXT", "PREV"):
                                 # Ignore startup button bounce to prevent infinite restart loop
@@ -532,16 +646,19 @@ async def main():
                                 if time_since_startup < 3.0:
                                     print(f"[info] Ignored early button transition during boot: {text}")
                                     continue
-                                await send_command(action, vol_ctrl)
+                                await send_command(action, vol_ctrl, manager)
                                 print(f"[info] {action} button pressed. Waiting 1.0s and restarting...")
                                 await asyncio.sleep(1.0)
                                 restart_program(ser)
                             else:
-                                await send_command(action, vol_ctrl)
+                                await send_command(action, vol_ctrl, manager)
                         print(f"[esp32] {text}")
                     else:
                         print(f"[esp32] {text}")
-            await asyncio.sleep(0.01)
+                await asyncio.sleep(0.01)
+            else:
+                # yield to event loop when no serial data is available
+                await asyncio.sleep(0.05)
 
     print("[info] Running. Ctrl+C to exit.")
     try:
@@ -552,6 +669,7 @@ async def main():
 
 if __name__ == "__main__":
     try:
+        sys.stdout.reconfigure(line_buffering=True)
         asyncio.run(main())
     except KeyboardInterrupt:
         print("\n[info] Stopped.")
