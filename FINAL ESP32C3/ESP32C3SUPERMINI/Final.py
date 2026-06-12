@@ -1,6 +1,8 @@
 import asyncio
 import io
 import time
+import os
+import sys
 from dataclasses import dataclass, field
 from typing import Optional, Tuple, List
 
@@ -423,6 +425,21 @@ def send_album(ser: serial.Serial, info: TrackInfo):
 
 # ---------------- Main ----------------
 
+def restart_program(ser):
+    print("[info] Closing serial port and restarting script...")
+    if ser:
+        try:
+            ser.close()
+        except Exception:
+            pass
+    time.sleep(0.5)
+    import subprocess
+    script = os.path.abspath(sys.argv[0])
+    args = [sys.executable, script] + sys.argv[1:]
+    subprocess.Popen(args)
+    os._exit(0)
+
+
 async def main():
     port = find_port()
     if not port:
@@ -495,6 +512,10 @@ async def main():
                             await send_command(f"VOL:{parts[1]}", vol_ctrl)
                         else:
                             await send_command(action, vol_ctrl)
+                            if action in ("NEXT", "PREV"):
+                                print(f"[info] {action} button pressed. Waiting 1.0s and restarting...")
+                                await asyncio.sleep(1.0)
+                                restart_program(ser)
                         print(f"[esp32] {text}")
                     else:
                         print(f"[esp32] {text}")
