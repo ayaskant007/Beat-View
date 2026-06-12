@@ -335,13 +335,13 @@ async def read_media(include_art: bool = True) -> TrackInfo:
                         if thumb_bytes:
                             img = Image.open(io.BytesIO(bytes(thumb_bytes)))
                             img.load()
-                    info.theme_rgb = extract_theme_color(img)
-                    info.art_bytes = image_to_rgb565_bytes(img, ALBUM_SIZE)
-                    info.art_w = ALBUM_SIZE
-                    info.art_h = ALBUM_SIZE
-            except Exception:
+                            info.theme_rgb = extract_theme_color(img)
+                            info.art_bytes = image_to_rgb565_bytes(img, ALBUM_SIZE)
+                            info.art_w = ALBUM_SIZE
+                            info.art_h = ALBUM_SIZE
+            except Exception as e:
                 # Album art is optional; never let it block track metadata updates.
-                pass
+                print(f"[warn] Failed to load album art: {e}")
     except Exception as e:
         info.title = "Media error"
         info.artist = str(e)[:36]
@@ -413,14 +413,26 @@ def make_track_line(info: TrackInfo, vol: int) -> str:
 
 def send_album(ser: serial.Serial, info: TrackInfo):
     if not info.art_bytes:
+        print("[info] No album art available, sending empty ART packet.")
         ser.write(b"ART|0|0|0\n")
         ser.flush()
         return
+    print(f"[info] Sending album art ({len(info.art_bytes)} bytes) in 32-byte chunks...")
     header = f"ART|{info.art_w}|{info.art_h}|{len(info.art_bytes)}\n".encode()
     ser.write(header)
-    ser.write(info.art_bytes)
+    ser.flush()
+    
+    # Send art in smaller 32-byte chunks with 2ms delay to prevent buffer overflow
+    chunk_size = 32
+    for i in range(0, len(info.art_bytes), chunk_size):
+        chunk = info.art_bytes[i:i + chunk_size]
+        ser.write(chunk)
+        ser.flush()
+        time.sleep(0.002)
+        
     ser.write(b"\n")
     ser.flush()
+    print("[info] Album art sent successfully.")
 
 
 # ---------------- Main ----------------
@@ -454,7 +466,8 @@ async def main():
             print(f"[warn] Could not open {port}: {e}")
             print("[info] Close Arduino Serial Monitor or any app using the port; retrying in 2s...")
             await asyncio.sleep(2)
-    time.sleep(1.0)  # let ESP32 boot
+    time.sleep(2.5)  # let ESP32 boot and enter loop()
+    startup_time = time.time()
 
     vol_ctrl = VolumeController()
 
@@ -475,6 +488,8 @@ async def main():
                 now = time.time()
                 # Send when meta changes OR every ~1s for progress
                 if track_key != last_track_key or now - last_send >= 1.0:
+                    if track_key != last_track_key:
+                        print(f"[info] Sending track: {info.title} - {info.artist} ({info.app})")
                     ser.write(line.encode("utf-8"))
                     ser.flush()
                     last_send = now
@@ -511,11 +526,18 @@ async def main():
                         if action == "VOL" and len(parts) >= 2:
                             await send_command(f"VOL:{parts[1]}", vol_ctrl)
                         else:
-                            await send_command(action, vol_ctrl)
                             if action in ("NEXT", "PREV"):
+                                # Ignore startup button bounce to prevent infinite restart loop
+                                time_since_startup = time.time() - startup_time
+                                if time_since_startup < 3.0:
+                                    print(f"[info] Ignored early button transition during boot: {text}")
+                                    continue
+                                await send_command(action, vol_ctrl)
                                 print(f"[info] {action} button pressed. Waiting 1.0s and restarting...")
                                 await asyncio.sleep(1.0)
                                 restart_program(ser)
+                            else:
+                                await send_command(action, vol_ctrl)
                         print(f"[esp32] {text}")
                     else:
                         print(f"[esp32] {text}")
