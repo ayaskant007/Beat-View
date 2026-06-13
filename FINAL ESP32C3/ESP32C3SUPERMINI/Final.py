@@ -439,13 +439,13 @@ def send_album(ser: serial.Serial, info: TrackInfo):
     ser.write(header)
     ser.flush()
     
-    # Send art in 64-byte chunks with 2ms delay to prevent buffer overflow
+    # Send art in 64-byte chunks with 3ms delay to prevent buffer overflow
     chunk_size = 64
     for i in range(0, len(info.art_bytes), chunk_size):
         chunk = info.art_bytes[i:i + chunk_size]
         ser.write(chunk)
         ser.flush()
-        time.sleep(0.002)
+        time.sleep(0.003)
         
     ser.write(b"\n")
     ser.flush()
@@ -470,6 +470,15 @@ def restart_program(ser):
 
 
 async def main():
+    # Set Windows timer resolution to 1ms for precise sleeps
+    winmm = None
+    try:
+        import ctypes
+        winmm = ctypes.WinDLL('winmm')
+        winmm.timeBeginPeriod(1)
+    except Exception:
+        pass
+
     port = find_port()
     if not port:
         raise SystemExit("No serial port found. Plug in the ESP32-C3.")
@@ -664,6 +673,11 @@ async def main():
     try:
         await asyncio.gather(poll_media_loop(), serial_read_loop())
     finally:
+        if winmm:
+            try:
+                winmm.timeEndPeriod(1)
+            except Exception:
+                pass
         ser.close()
 
 

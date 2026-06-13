@@ -766,10 +766,37 @@ void setup() {
   drawBody();
   drawFooter();
 }
-
 void loop() {
-  while (Serial.available()) {
-    handleSerialByte((uint8_t)Serial.read());
+  if (artReceiving) {
+    int avail = Serial.available();
+    if (avail > 0) {
+      int toRead = min(avail, artExpected - artIndex);
+      if (toRead > 0) {
+        uint8_t tempBuf[64];
+        int chunk = min(toRead, 64);
+        int readBytes = Serial.readBytes(tempBuf, chunk);
+        for (int i = 0; i < readBytes; i++) {
+          int pixIdx = artIndex / 2;
+          if (pixIdx < ART_SIZE * ART_SIZE) {
+            if ((artIndex & 1) == 0) {
+              albumArt[pixIdx] = ((uint16_t)tempBuf[i]) << 8;
+            } else {
+              albumArt[pixIdx] |= tempBuf[i];
+            }
+          }
+          artIndex++;
+        }
+        if (artIndex >= artExpected) {
+          artReceiving = false;
+          artAwaitTerm = true;
+          artReady = (artW == ART_SIZE && artH == ART_SIZE);
+        }
+      }
+    }
+  } else {
+    while (Serial.available()) {
+      handleSerialByte((uint8_t)Serial.read());
+    }
   }
   
   handleButtons();
