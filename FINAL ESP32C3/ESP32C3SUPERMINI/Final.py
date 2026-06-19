@@ -24,7 +24,7 @@ except ImportError:
     raise SystemExit("pip install winsdk")
 
 BAUD = 115200
-SERIAL_PORT = "COM6"   # e.g. "COM6"
+SERIAL_PORT = "COM6"
 POLL_SECONDS = 0.4
 ALBUM_SIZE = 60
 
