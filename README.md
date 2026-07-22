@@ -9,6 +9,12 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ## Project Media
 
+<img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/2042b2e4-bc75-4eb9-906a-9bf582949c95" />
+
+<img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/97aaa07b-0db8-4c9c-9fb7-d6c2c74034d2" />
+
+
+
 ### 3D Model Render
 ![Fusion 360 3D Case Model](images/main.webp)
 <img width="807" height="552" alt="image" src="https://github.com/user-attachments/assets/258c9b27-efcb-4cda-bb8c-5aa2df21411c" />
