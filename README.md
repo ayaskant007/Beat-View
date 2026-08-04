@@ -9,6 +9,8 @@ I made this to solve the annyoance of always having to switch tabs/windows and i
 
 ## Project Media
 
+[Click this to see the demo video](https://drive.google.com/file/d/1Z7YIdjlfjScMlj2ab83R-hnQqPh4U6T6/view?usp=sharing)
+
 <img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/2042b2e4-bc75-4eb9-906a-9bf582949c95" />
 
 <img width="720" height="1280" alt="image" src="https://github.com/user-attachments/assets/97aaa07b-0db8-4c9c-9fb7-d6c2c74034d2" />
